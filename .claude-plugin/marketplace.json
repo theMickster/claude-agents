@@ -1,0 +1,32 @@
+{
+  "name": "claude-code-collective",
+  "owner": {
+    "name": "Mick Letofsky",
+    "email": "mletofsky@outlook.com",
+    "url": "https://github.com/theMickster"
+  },
+  "metadata": {
+    "description": "Battle-tested agents, prompts, commands, and plugins built for enterprise teams who ship code daily. Production-grade components you can actually trust in the wild.",
+    "version": "1.0.0"
+  },
+
+  "plugins": [
+    {
+      "name": "database-architect",
+      "path": "plugins/database-architect",
+      "description": "Design, optimize, and evolve database schemas for production systems. Handles schema modeling, migration strategies, indexing decisions, and query performance tuning.",
+      "agents": [
+        {
+          "name": "sql-server-architect",
+          "path": "plugins/database-architect/agents/sql-server-architect.md",
+          "description": "Design SQL Server schemas, optimize T-SQL queries, implement indexing strategies, and configure high availability solutions for enterprise databases."
+        },
+        {
+          "name": "cosmosdb-architect",
+          "path": "plugins/database-architect/agents/cosmosdb-architect.md",
+          "description": "Design Azure Cosmos DB schemas, select partition keys, optimize RU consumption, implement change feeds, and configure multi-region deployments. Use proactively during database design and performance optimization phases."
+        }
+      ]
+    }
+  ]
+}
