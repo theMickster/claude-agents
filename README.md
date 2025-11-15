@@ -49,16 +49,31 @@ That's it! All agents, prompts, commands, and plugins will be available in your 
 
 Specialized sub-agents that handle complex, multi-step tasks autonomously. Each agent is optimized for production workloads and enterprise-scale codebases.
 
-### Available Agents
+### Engineering Orchestrator
 
-_Coming soon — production-grade agents for:_
-- **Code Review & Quality** — Comprehensive review with security, performance, and maintainability analysis
-- **Architecture Planning** — Strategic implementation plans for complex features
-- **Test Generation** — Smart test suite creation with edge case coverage
-- **Documentation** — Technical documentation that stays current with your code
-- **Refactoring** — Safe, semantic-preserving code improvements
+**Meta-agent for coordinating complex software engineering workflows**
 
-> **Add your own:** Drop agents into `/agents` with clear documentation and usage examples.
+- **[engineering-orchestrator](plugins/engineering-orchestrator/)** — Orchestrate multi-domain tasks by coordinating specialized agents through progressive disclosure and deliberate reasoning. Use for authentication systems, performance optimization, migrations, or any task spanning backend, frontend, database, and DevOps.
+
+### Database Architecture
+
+**Strategic technology decisions and production-grade database design**
+
+- **[database-advisor](plugins/database-architect/agents/database-advisor.md)** — Strategic advisor for critical database technology decisions. Evaluates SQL Server vs Cosmos DB vs PostgreSQL, analyzes trade-offs, and recommends platforms based on workload patterns, scale, and team capabilities.
+
+- **[sql-server-architect](plugins/database-architect/agents/sql-server-architect.md)** — Design SQL Server schemas, optimize T-SQL queries, implement indexing strategies, and configure high availability solutions for enterprise databases.
+
+- **[cosmosdb-architect](plugins/database-architect/agents/cosmosdb-architect.md)** — Design Azure Cosmos DB schemas, select partition keys, optimize RU consumption, implement change feeds, and configure multi-region deployments.
+
+### Key Features
+
+✅ **Progressive Disclosure** — Agents ask strategic questions to uncover requirements before jumping to solutions
+
+✅ **Chain-of-Thought Reasoning** — Transparent decision-making using `<thinking>` tags
+
+✅ **Reference Materials** — Deep knowledge loaded on-demand for efficient context usage
+
+✅ **Agent Coordination** — Meta-agents discover and route to specialized implementation agents
 
 ---
 
@@ -119,53 +134,78 @@ This marketplace follows Claude Code SDK best practices for maximum compatibilit
 
 ```
 claude-agents/
-├── agents/              # Sub-agents for specialized tasks
-│   ├── code-review/
-│   ├── architecture/
-│   └── testing/
 ├── .claude/
-│   ├── prompts/        # Reusable prompt templates
-│   │   ├── pr-review.md
-│   │   ├── bug-analysis.md
-│   │   └── feature-spec.md
-│   └── commands/       # Custom slash commands
-│       ├── ship.md
-│       ├── review-security.md
-│       └── optimize.md
-├── plugins/            # MCP server configurations
-│   ├── ci-cd/
-│   ├── observability/
-│   └── security/
+│   ├── CLAUDE.md           # Project context for Claude Code
+│   ├── prompts/            # Reusable prompt templates
+│   └── commands/           # Custom slash commands
+├── .claude-plugin/
+│   └── marketplace.json    # Plugin and agent registry
+├── plugins/
+│   ├── engineering-orchestrator/
+│   │   ├── engineering-orchestrator.md
+│   │   └── README.md
+│   └── database-architect/
+│       ├── agents/
+│       │   ├── database-advisor.md
+│       │   ├── sql-server-architect.md
+│       │   └── cosmosdb-architect.md
+│       ├── reference/      # On-demand knowledge base
+│       │   ├── database-selection-guide.md
+│       │   ├── advisor-decision-examples.md
+│       │   ├── sql-server-best-practices.md
+│       │   ├── output-templates.md
+│       │   └── qa-checklist.md
+│       └── README.md
 └── README.md
 ```
+
+### Plugin Structure
+
+Each plugin contains:
+- **Agents** — Specialized sub-agents with focused expertise
+- **Reference materials** — Deep knowledge loaded on-demand
+- **Documentation** — Setup guides and usage examples
+
+### Agent Patterns
+
+**Meta-agents** (orchestration):
+- Coordinate multiple specialized agents
+- Use progressive disclosure to gather requirements
+- Route to appropriate implementation agents
+
+**Implementation agents** (specialized):
+- Deep expertise in specific domains
+- Research-first approach using Microsoft docs tools
+- Chain-of-thought reasoning with reference materials
 
 ---
 
 ## 🎓 Best Practices
 
 ### For Agents
-- ✅ Single responsibility — one agent, one job
-- ✅ Clear interfaces — document inputs, outputs, and side effects
-- ✅ Error handling — graceful degradation and helpful error messages
-- ✅ Idempotency — safe to run multiple times
+- ✅ Progressive disclosure — Ask before assuming
+- ✅ Chain-of-thought reasoning — Think transparently
+- ✅ Reference materials — Load knowledge on-demand
+- ✅ Single responsibility — One agent, one job
+- ✅ Error handling — Graceful degradation
 
 ### For Prompts
-- ✅ Structured output — consistent format for parsing
-- ✅ Context awareness — include relevant project-specific details
-- ✅ Versioning — track prompt changes over time
-- ✅ Examples — provide sample inputs/outputs
+- ✅ Structured output — Consistent format for parsing
+- ✅ Context awareness — Include relevant project-specific details
+- ✅ Versioning — Track prompt changes over time
+- ✅ Examples — Provide sample inputs/outputs
 
 ### For Commands
-- ✅ Fast execution — under 30 seconds when possible
-- ✅ Clear naming — verb-based, self-explanatory
-- ✅ Confirmation prompts — for destructive operations
-- ✅ Rich output — helpful success/error messages
+- ✅ Fast execution — Under 30 seconds when possible
+- ✅ Clear naming — Verb-based, self-explanatory
+- ✅ Confirmation prompts — For destructive operations
+- ✅ Rich output — Helpful success/error messages
 
 ### For Plugins
-- ✅ Robust auth — secure credential management
-- ✅ Rate limiting — respect API quotas
-- ✅ Offline handling — graceful degradation without network
-- ✅ Documentation — clear setup and configuration steps
+- ✅ Robust auth — Secure credential management
+- ✅ Rate limiting — Respect API quotas
+- ✅ Offline handling — Graceful degradation without network
+- ✅ Documentation — Clear setup and configuration steps
 
 ---
 
@@ -206,12 +246,12 @@ We welcome contributions that meet our production-grade standards. Whether you'r
 
 _Track the growth of our marketplace:_
 
-- **🤖 Agents:** 0 (launching soon)
+- **🤖 Agents:** 4 (2 meta-agents, 2 implementation agents)
+- **🔌 Plugins:** 2 (engineering-orchestrator, database-architect)
 - **✍️ Prompts:** 0 (launching soon)
 - **⚡ Commands:** 0 (launching soon)
-- **🔌 Plugins:** 0 (launching soon)
 
-> Last updated: 2025-12-04
+> Last updated: 2025-12-08
 
 ---
 
@@ -226,21 +266,22 @@ _Featured implementations using this marketplace:_
 ## 🛣️ Roadmap
 
 ### Q1 2025
-- [ ] Initial agent collection (code review, architecture, testing)
+- [x] Engineering orchestrator (progressive disclosure + agent coordination)
+- [x] Database architecture suite (advisor + SQL Server + Cosmos DB)
+- [x] Reference materials pattern (efficient context usage)
 - [ ] Core prompt library for common workflows
 - [ ] Essential slash commands for daily tasks
-- [ ] CI/CD and observability plugin integrations
 
 ### Q2 2025
-- [ ] Advanced security scanning agents
-- [ ] Performance optimization toolkit
-- [ ] Multi-language support expansion
-- [ ] Enterprise SSO and access control
+- [ ] Frontend architecture agents (React, Angular, Blazor)
+- [ ] Backend API design agents (REST, GraphQL, gRPC)
+- [ ] Security and compliance agents
+- [ ] CI/CD and observability plugin integrations
 
 ### Future
-- [ ] Agent orchestration framework
-- [ ] Prompt A/B testing and analytics
-- [ ] Command composition and chaining
+- [ ] Performance optimization toolkit
+- [ ] Multi-language support expansion
+- [ ] Agent orchestration analytics
 - [ ] Plugin marketplace discovery
 
 ---

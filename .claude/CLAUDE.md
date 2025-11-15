@@ -53,19 +53,36 @@ claude-agents/
 │   ├── CLAUDE.md           # ← You are here
 │   ├── prompts/            # Reusable prompt templates
 │   └── commands/           # Custom slash commands
-├── agents/                 # Sub-agents for specialized tasks
-├── plugins/                # MCP server configurations
+├── .claude-plugin/
+│   └── marketplace.json    # Plugin and agent registry
+├── plugins/
+│   ├── engineering-orchestrator/
+│   │   ├── engineering-orchestrator.md
+│   │   └── README.md
+│   └── database-architect/
+│       ├── agents/
+│       │   ├── database-advisor.md
+│       │   ├── sql-server-architect.md
+│       │   └── cosmosdb-architect.md
+│       ├── reference/      # On-demand knowledge base
+│       │   ├── database-selection-guide.md
+│       │   ├── advisor-decision-examples.md
+│       │   ├── sql-server-best-practices.md
+│       │   ├── output-templates.md
+│       │   └── qa-checklist.md
+│       └── README.md
 └── README.md              # Public-facing marketplace docs
 ```
 
 ### Where Things Go
 
-| Component Type | Location                  | File Format              | Notes                            |
-| -------------- | ------------------------- | ------------------------ | -------------------------------- |
-| **Agents**     | `/agents/{agent-name}/`   | Directory with README.md | Each agent is self-contained     |
-| **Prompts**    | `/.claude/prompts/*.md`   | Markdown files           | Follow Claude Code prompt format |
-| **Commands**   | `/.claude/commands/*.md`  | Markdown files           | Slash command definitions        |
-| **Plugins**    | `/plugins/{plugin-name}/` | Directory with config    | MCP server setup + docs          |
+| Component Type | Location | File Format | Notes |
+| -------------- | -------- | ----------- | ----- |
+| **Plugins** | `/plugins/{plugin-name}/` | Directory with README.md | Plugin container |
+| **Agents** | `/plugins/{plugin-name}/agents/*.md` | Markdown files with frontmatter | Agent definitions |
+| **Reference** | `/plugins/{plugin-name}/reference/*.md` | Markdown files | On-demand knowledge |
+| **Prompts** | `/.claude/prompts/*.md` | Markdown files | Follow Claude Code format |
+| **Commands** | `/.claude/commands/*.md` | Markdown files | Slash command definitions |
 
 ---
 
@@ -116,36 +133,139 @@ For each component you help create:
 
 ## 🛠️ Component Creation Guidelines
 
-### For Agents (`/agents/`)
+### For Plugins (`/plugins/`)
 
-Agents are autonomous task executors with specialized expertise.
+Plugins are containers for related agents and functionality.
 
 **Structure:**
 
 ```
-agents/
-└── {agent-name}/
-    ├── README.md           # Documentation
-    ├── prompt.md           # Agent system prompt
-    ├── examples/           # Usage examples
-    └── tests/              # Test cases (if applicable)
+plugins/
+└── {plugin-name}/
+    ├── README.md           # Plugin overview
+    ├── agents/             # Agent definitions
+    │   ├── {agent-1}.md
+    │   └── {agent-2}.md
+    └── reference/          # Reference materials (optional)
+        ├── {guide-1}.md
+        └── {guide-2}.md
 ```
 
 **Quality Bar:**
 
-- Single, clear responsibility
-- Well-defined inputs and outputs
-- Graceful error handling
-- Idempotent operations (safe to retry)
-- Examples of real-world usage
+- Clear plugin purpose and scope
+- Well-organized agent hierarchy
+- Reference materials for efficient context usage
+- Comprehensive documentation
 
-**Example Agent Ideas:**
+**Current Plugins:**
 
-- `code-review-agent` — Comprehensive PR reviews
-- `architecture-planner` — Technical design documents
-- `test-generator` — Smart test suite creation
-- `security-scanner` — Vulnerability detection
-- `performance-optimizer` — Profiling and optimization
+- `engineering-orchestrator` — Meta-agent for coordinating complex workflows
+- `database-architect` — Database technology decisions and implementation
+
+---
+
+### For Agents (`/plugins/{plugin-name}/agents/`)
+
+Agents are autonomous task executors with specialized expertise.
+
+**File Format:**
+
+```markdown
+---
+name: agent-name
+description: Brief description of what this agent does
+tools: Glob, Grep, Read, ...
+model: opus | sonnet | haiku
+color: blue
+---
+
+You are a specialized agent...
+
+## **INSTRUCTIONS FOR USE**
+
+**CRITICAL**: Follow these patterns:
+
+### 1. Progressive Disclosure
+- Ask strategic questions before jumping to solutions
+- Uncover requirements through targeted questioning
+
+### 2. Chain-of-Thought Reasoning
+- Use `<thinking>` tags to show your reasoning
+- Analyze trade-offs transparently
+
+### 3. Reference Materials (When Needed)
+- Read reference files on-demand for deep knowledge
+- Keep agent prompt lean, load context only when needed
+
+...
+```
+
+**Quality Bar:**
+
+- **Progressive disclosure** — Ask before assuming
+- **Chain-of-thought** — Think transparently with `<thinking>` tags
+- **Reference materials** — Load deep knowledge on-demand
+- **Single responsibility** — One agent, one job
+- **Graceful error handling** — Fail gracefully with helpful messages
+
+**Agent Patterns:**
+
+**Meta-agents** (orchestration):
+- Discover available agents from `marketplace.json`
+- Coordinate specialized agents for complex tasks
+- Use progressive disclosure to gather requirements
+- Route to appropriate implementation agents
+
+**Implementation agents** (specialized):
+- Deep expertise in specific domain
+- Research-first approach (use MCP tools when applicable)
+- Chain-of-thought reasoning
+- Reference materials for efficient context
+
+**Example Meta-Agent:**
+- `engineering-orchestrator` — Coordinates database, frontend, backend agents
+
+**Example Implementation Agents:**
+- `sql-server-architect` — SQL Server schema and optimization
+- `cosmosdb-architect` — Cosmos DB design and performance
+
+---
+
+### For Reference Materials (`/plugins/{plugin-name}/reference/`)
+
+Reference files contain deep knowledge loaded on-demand by agents.
+
+**Purpose:**
+- Keep agent prompts lean (efficient context usage)
+- Provide deep knowledge only when needed
+- Avoid front-loading agents with encyclopedic content
+
+**File Format:**
+
+```markdown
+# Reference Guide Title
+
+Deep knowledge content here...
+
+## Section 1
+...
+
+## Section 2
+...
+```
+
+**When to create reference materials:**
+- Database categories and selection criteria
+- Technology comparison matrices
+- Best practices and patterns
+- Decision frameworks
+- Example interactions
+
+**Example reference files:**
+- `database-selection-guide.md` — Database types, CAP theorem, workload patterns
+- `advisor-decision-examples.md` — Complete interaction examples
+- `sql-server-best-practices.md` — T-SQL optimization, indexing strategies
 
 ---
 
@@ -213,46 +333,34 @@ Your command implementation here...
 
 ---
 
-### For Plugins (`/plugins/`)
-
-Plugins are MCP server integrations for external tools.
-
-**Structure:**
-
-```
-plugins/
-└── {plugin-name}/
-    ├── README.md           # Setup and usage docs
-    ├── config.json         # MCP server configuration
-    └── examples/           # Integration examples
-```
-
-**Quality Bar:**
-
-- Secure credential management
-- Respect API rate limits
-- Graceful offline handling
-- Clear setup instructions
-
-**Example Plugin Ideas:**
-
-- CI/CD integration (GitHub Actions, CircleCI)
-- Observability (DataDog, New Relic)
-- Issue tracking (Jira, Linear)
-- Code quality (SonarQube, CodeClimate)
-- Security scanning (Snyk, Dependabot)
-
----
-
 ## 💡 When the User Asks You To...
+
+### "Add a new plugin"
+
+1. Create directory in `/plugins/{plugin-name}/`
+2. Create `README.md` with plugin overview
+3. Create `agents/` subdirectory
+4. Create `reference/` subdirectory (if needed)
+5. Register in `.claude-plugin/marketplace.json`
+6. Update main README with plugin description
 
 ### "Add a new agent"
 
-1. Create directory in `/agents/{agent-name}/`
-2. Write comprehensive README.md
-3. Create the agent prompt file
-4. Add usage examples
-5. Update main README stats
+1. Determine which plugin it belongs to
+2. Create file in `/plugins/{plugin-name}/agents/{agent-name}.md`
+3. Include frontmatter with name, description, tools, model, color
+4. Implement progressive disclosure + chain-of-thought pattern
+5. Create reference materials if deep knowledge needed
+6. Register in `.claude-plugin/marketplace.json` under plugin
+7. Update main README with agent description
+
+### "Create reference material"
+
+1. Create file in `/plugins/{plugin-name}/reference/{name}.md`
+2. Structure for on-demand consumption by agents
+3. Keep content focused and scannable
+4. Link from agent instructions when to read it
+5. DON'T duplicate content in agent prompt
 
 ### "Create a prompt template"
 
@@ -268,14 +376,6 @@ plugins/
 2. Include frontmatter with description
 3. Make it fast and focused
 4. Add error handling
-5. Update main README stats
-
-### "Set up a plugin"
-
-1. Create directory in `/plugins/{plugin-name}/`
-2. Write setup documentation
-3. Create MCP configuration
-4. Add integration examples
 5. Update main README stats
 
 ### "Review or improve existing code"
@@ -311,6 +411,8 @@ If you see any of these, flag them immediately:
 - ❌ Security vulnerabilities
 - ❌ Performance bottlenecks
 - ❌ Breaking changes without version updates
+- ❌ Agents with bloated prompts (move to reference materials!)
+- ❌ Missing progressive disclosure or chain-of-thought patterns
 
 ---
 
@@ -342,6 +444,7 @@ When helping:
 - Point out potential issues early
 - Maintain the established style and energy
 - Keep components focused and maintainable
+- Use reference materials pattern for efficient context usage
 
 ---
 

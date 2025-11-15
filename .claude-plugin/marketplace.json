@@ -12,10 +12,27 @@
 
   "plugins": [
     {
+      "name": "engineering-orchestrator",
+      "path": "plugins/engineering-orchestrator",
+      "description": "Orchestrate complex software engineering tasks by coordinating specialized agents through progressive disclosure, architectural planning, and deliberate agent selection.",
+      "agents": [
+        {
+          "name": "engineering-orchestrator",
+          "path": "plugins/engineering-orchestrator/engineering-orchestrator.md",
+          "description": "Orchestrate complex software engineering tasks by coordinating specialized agents through progressive disclosure, architectural planning, and deliberate agent selection. Use when tasks span multiple domains (backend, frontend, database, DevOps) or require architectural decision-making."
+        }
+      ]
+    },
+    {
       "name": "database-architect",
       "path": "plugins/database-architect",
       "description": "Design, optimize, and evolve database schemas for production systems. Handles schema modeling, migration strategies, indexing decisions, and query performance tuning.",
       "agents": [
+        {
+          "name": "database-advisor",
+          "path": "plugins/database-architect/agents/database-advisor.md",
+          "description": "Strategic database technology advisor for critical platform decisions, migration evaluations, and architectural trade-off analysis. Use when selecting database technologies, evaluating polyglot persistence, or assessing re-platforming decisions."
+        },
         {
           "name": "sql-server-architect",
           "path": "plugins/database-architect/agents/sql-server-architect.md",
