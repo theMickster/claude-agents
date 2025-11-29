@@ -9,41 +9,31 @@
     "description": "Battle-tested agents, prompts, commands, and plugins built for enterprise teams who ship code daily. Production-grade components you can actually trust in the wild.",
     "version": "1.0.0"
   },
-
   "plugins": [
     {
       "name": "engineering-orchestrator",
-      "path": "plugins/engineering-orchestrator",
-      "description": "Orchestrate complex software engineering tasks by coordinating specialized agents through progressive disclosure, architectural planning, and deliberate agent selection.",
-      "agents": [
-        {
-          "name": "engineering-orchestrator",
-          "path": "plugins/engineering-orchestrator/engineering-orchestrator.md",
-          "description": "Orchestrate complex software engineering tasks by coordinating specialized agents through progressive disclosure, architectural planning, and deliberate agent selection. Use when tasks span multiple domains (backend, frontend, database, DevOps) or require architectural decision-making."
-        }
-      ]
+      "source": "plugins/engineering-orchestrator",
+      "description": "Orchestrate complex software engineering tasks by coordinating specialized agents through progressive disclosure, architectural planning, and deliberate agent selection."
     },
     {
       "name": "database-architect",
-      "path": "plugins/database-architect",
-      "description": "Design, optimize, and evolve database schemas for production systems. Handles schema modeling, migration strategies, indexing decisions, and query performance tuning.",
-      "agents": [
-        {
-          "name": "database-advisor",
-          "path": "plugins/database-architect/agents/database-advisor.md",
-          "description": "Strategic database technology advisor for critical platform decisions, migration evaluations, and architectural trade-off analysis. Use when selecting database technologies, evaluating polyglot persistence, or assessing re-platforming decisions."
-        },
-        {
-          "name": "sql-server-architect",
-          "path": "plugins/database-architect/agents/sql-server-architect.md",
-          "description": "Design SQL Server schemas, optimize T-SQL queries, implement indexing strategies, and configure high availability solutions for enterprise databases."
-        },
-        {
-          "name": "cosmosdb-architect",
-          "path": "plugins/database-architect/agents/cosmosdb-architect.md",
-          "description": "Design Azure Cosmos DB schemas, select partition keys, optimize RU consumption, implement change feeds, and configure multi-region deployments. Use proactively during database design and performance optimization phases."
-        }
-      ]
+      "source": "plugins/database-architect",
+      "description": "Design, optimize, and evolve database schemas for production systems. Handles schema modeling, migration strategies, indexing decisions, and query performance tuning."
+    },
+    {
+      "name": "devops",
+      "source": "plugins/devops",
+      "description": "Design, deploy, and manage DevOps pipelines and infrastructure automation. Handles CI/CD pipeline creation, infrastructure as code, monitoring setup, and automation scripting."
+    },
+    {
+      "name": "fullstack-software-engineer",
+      "source": "plugins/fullstack-software-engineer",
+      "description": "Fullstack software engineering across frontend and backend domains. Handles API development, UI implementation, database integration, and deployment tasks."
+    },
+    {
+      "name": "prompt-engineer",
+      "source": "plugins/prompt-engineer",
+      "description": "Prompt engineering tasks including designing, optimizing, and managing AI prompts."
     }
   ]
 }

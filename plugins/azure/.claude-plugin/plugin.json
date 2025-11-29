@@ -1,0 +1,12 @@
+{
+  "name": "azure",
+  "version": "1.0.0",
+  "description": "Agents and plugins for designing, deploying, and managing applications on Microsoft Azure cloud platform.",
+  "author": {
+    "name": "Mick Letofsky",
+    "url": "https://github.com/theMickster"
+  },
+  "keywords": ["azure", "cloud"],
+  "agents": [],
+  "commands": []
+}

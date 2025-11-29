@@ -1,0 +1,16 @@
+{
+  "name": "database-architect",
+  "version": "1.0.0",
+  "description": "Claude Code SDK for designing, optimizing, and evolving database schemas for production systems.",
+  "author": {
+    "name": "Mick Letofsky",
+    "url": "https://github.com/theMickster"
+  },
+  "keywords": ["database", "sql server", "sql", "cosmos db", "nosql"],
+  "agents": [
+    ".agents/database-advisor.md",
+    ".agents/sql-server-architect.md",
+    ".agents/cosmosdb-architect.md"
+  ],
+  "commands": []
+}

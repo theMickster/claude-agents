@@ -1,0 +1,22 @@
+{
+  "name": "fullstack-software-engineer",
+  "version": "1.0.0",
+  "description": "Claude Code SDK for fullstack software engineering tasks across frontend and backend domains.",
+  "author": {
+    "name": "Mick Letofsky",
+    "url": "https://github.com/theMickster"
+  },
+  "keywords": [
+    "fullstack",
+    "software engineer",
+    "C#",
+    "typescript",
+    "csharp",
+    "rust",
+    "sql",
+    "frontend",
+    "backend"
+  ],
+  "agents": [".agents/fullstack-software-engineer.md"],
+  "commands": []
+}

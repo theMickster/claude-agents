@@ -1,0 +1,12 @@
+{
+  "name": "engineering-orchestrator",
+  "version": "1.0.0",
+  "description": "Claude Code SDK for orchestrating complex software engineering tasks by coordinating specialized agents through progressive disclosure, architectural planning, and deliberate agent selection.",
+  "author": {
+    "name": "Mick Letofsky",
+    "url": "https://github.com/theMickster"
+  },
+  "keywords": [],
+  "agents": [".agents/engineering-orchestrator.md"],
+  "commands": []
+}
